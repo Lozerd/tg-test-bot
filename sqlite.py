@@ -11,9 +11,6 @@ class SQLight:
         return self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS users (id integer constraint table_name_pk primary key autoincrement, "
             "user_tg_id varchar, status boolean default true not null)")
-        # return self.cursor.execute(
-        #     'create table users (id integer constraint table_name_pk primary key autoincrement, user_tg_id varchar, '
-        #     'status boolean default true not null);')
 
     def get_subscriptions(self, status=True):
         self.create_users_table()
@@ -38,6 +35,3 @@ class SQLight:
 
     def close(self):
         return self.connection.close()
-
-# db = self.cursor.execute("SELECT `name` FROM `sqlite_master` WHERE type='table' AND name='users' ").fetchall()
-# self.create_users_table()

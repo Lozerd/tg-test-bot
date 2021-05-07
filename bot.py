@@ -19,9 +19,11 @@ def start(message):
     bot.send_message(message.chat.id, f"Добро пожаловать {message.from_user.first_name}!\n"
                                       f"Ваш никнейм: {message.from_user.username}\n"
                                       f"Ваш ID: {message.from_user.id}")
-    print(db.cursor.execute("SELECT `status` FROM `users`").fetchall())
 
-#
+
+''' ECHO COMMAND'''
+
+
 # @bot.message_handler(content_types=['text'])
 # def body(message):
 #     if message.reply_to_message:
@@ -37,10 +39,10 @@ def start(message):
 def subscribe(message):
     if not db.subscriber_exists(message.from_user.id):
         db.add_subscriber(message.from_user.id)
-        print(1)
+        db.connection.commit()
     else:
-        print(f'2: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}\nПодписки: {db.get_subscriptions()}')
         db.update_subscription(message.from_user.id, True)
+        db.connection.commit()
 
     return bot.send_message(message.chat.id, "Вы успешно подписаны")
 
@@ -48,13 +50,12 @@ def subscribe(message):
 @bot.message_handler(commands=['unsubscribe'])
 def unsubscribe(message):
     if not db.subscriber_exists(message.from_user.id):
-        print(3)
         db.add_subscriber(message.from_user.id, False)
+        db.connection.commit()
         bot.send_message(message.chat.id, "Вы итак не подписаны")
     else:
-        print(f'4: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}\nПодписки: {db.get_subscriptions()}')
-        print(4)
         db.update_subscription(message.from_user.id, False)
+        db.connection.commit()
         bot.send_message(message.chat.id, "Вы успешно отписались")
 
 
