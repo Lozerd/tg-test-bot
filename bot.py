@@ -19,6 +19,7 @@ def start(message):
     bot.send_message(message.chat.id, f"Добро пожаловать {message.from_user.first_name}!\n"
                                       f"Ваш никнейм: {message.from_user.username}\n"
                                       f"Ваш ID: {message.from_user.id}")
+    print(db.cursor.execute("SELECT `status` FROM `users`").fetchall())
 
 #
 # @bot.message_handler(content_types=['text'])
@@ -38,6 +39,7 @@ def subscribe(message):
         db.add_subscriber(message.from_user.id)
         print(1)
     else:
+        print(f'2: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}')
         db.update_subscription(message.from_user.id, True)
         print(2)
 
@@ -51,6 +53,7 @@ def unsubscribe(message):
         db.add_subscriber(message.from_user.id, False)
         bot.send_message(message.chat.id, "Вы итак не подписаны")
     else:
+        print(f'4: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}')
         print(4)
         db.update_subscription(message.from_user.id, False)
         bot.send_message(message.chat.id, "Вы успешно отписались")
