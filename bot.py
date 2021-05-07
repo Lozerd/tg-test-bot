@@ -39,9 +39,8 @@ def subscribe(message):
         db.add_subscriber(message.from_user.id)
         print(1)
     else:
-        print(f'2: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}')
+        print(f'2: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}\nПодписки: {db.get_subscriptions()}')
         db.update_subscription(message.from_user.id, True)
-        print(2)
 
     return bot.send_message(message.chat.id, "Вы успешно подписаны")
 
@@ -53,7 +52,7 @@ def unsubscribe(message):
         db.add_subscriber(message.from_user.id, False)
         bot.send_message(message.chat.id, "Вы итак не подписаны")
     else:
-        print(f'4: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}')
+        print(f'4: {db.cursor.execute("SELECT `status` FROM `users`").fetchall()}\nПодписки: {db.get_subscriptions()}')
         print(4)
         db.update_subscription(message.from_user.id, False)
         bot.send_message(message.chat.id, "Вы успешно отписались")
