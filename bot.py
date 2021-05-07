@@ -36,8 +36,10 @@ def start(message):
 def subscribe(message):
     if not db.subscriber_exists(message.from_user.id):
         db.add_subscriber(message.from_user.id)
+        print(1)
     else:
         db.update_subscription(message.from_user.id, True)
+        print(2)
 
     return bot.send_message(message.chat.id, "Вы успешно подписаны")
 
@@ -45,11 +47,13 @@ def subscribe(message):
 @bot.message_handler(commands=['unsubscribe'])
 def unsubscribe(message):
     if not db.subscriber_exists(message.from_user.id):
+        print(3)
         db.add_subscriber(message.from_user.id, False)
         bot.send_message(message.chat.id, "Вы итак не подписаны")
     else:
+        print(4)
         db.update_subscription(message.from_user.id, False)
         bot.send_message(message.chat.id, "Вы успешно отписались")
 
 
-bot.polling()
+bot.polling(none_stop=True)
