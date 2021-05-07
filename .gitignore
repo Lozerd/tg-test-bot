@@ -2,6 +2,8 @@ __pycache__
 .idea
 *.pyc
 *.sqlite3
+*.session
+*.session-journal
 *.orig
 *.iml
 *.cmd
