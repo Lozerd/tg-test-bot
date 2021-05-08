@@ -81,49 +81,4 @@ def msg_parser(message):
     bot.send_message(message.chat.id, end_message, reply_markup=markup)
 
 
-# @bot.message_handler(commands=['start'])
-# def start(message):
-#     bot.send_message(message.chat.id, f"Добро пожаловать {message.from_user.first_name}!\n"
-#                                       f"Ваш никнейм: {message.from_user.username}\n"
-#                                       f"Ваш ID: {message.from_user.id}")
-# @bot.message_handler(commands=['menu'])
-# def menu(message):
-#     markup = types.ReplyKeyboardMarkup()
-#     btn = ReplyButtons()
-#     markup.add(btn.btn1, btn.btn2, btn.btn3, btn.btn4, btn.btn5, btn.restart)
-#     bot.send_message(message.chat.id, "Это главное меню, выберите опцию", reply_markup=markup)
-# @bot.message_handler(commands=['subscribe'])
-# def subscribe(message):
-#     if not db.subscriber_exists(message.from_user.id):
-#         db.add_subscriber(message.from_user.id)
-#         db.connection.commit()
-#     else:
-#         db.update_subscription(message.from_user.id, True)
-#         db.connection.commit()
-#
-#     return bot.send_message(message.chat.id, "Вы успешно подписаны")
-
-#
-# @bot.message_handler(commands=['unsubscribe'])
-# def unsubscribe(message):
-#     if not db.subscriber_exists(message.from_user.id):
-#         db.add_subscriber(message.from_user.id, False)
-#         db.connection.commit()
-#         bot.send_message(message.chat.id, "Вы итак не подписаны")
-#     else:
-#         db.update_subscription(message.from_user.id, False)
-#         db.connection.commit()
-#         bot.send_message(message.chat.id, "Вы успешно отписались")
-#
-# @bot.message_handler(content_types=['text'])
-# def body(message):
-#     if message.reply_to_message:
-#         bot.send_message(message.reply_to_message.forward_from.id, message.text)
-#     else:
-#         bot.forward_message(admin_id,
-#                             message.from_user.id,
-#                             message.id
-#                             )
-
-
 bot.polling(none_stop=True)
