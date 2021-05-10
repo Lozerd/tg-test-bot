@@ -6,10 +6,10 @@ import random
 
 app = Client("my_account", bot_token="1851253471:AAHTPikHhvOWWqcdIdK4QN19F49BUwyb74g")
 
-
-@app.on_message(filters.text & filters.private)
-def echo(client, message):
-    message.reply_text(message.text)
+# Echo
+# @app.on_message(filters.text & filters.private)
+# def echo(client, message):
+#     message.reply_text(message.text)
 
 
 @app.on_message(filters.command("type", prefixes=".") & filters.me)
